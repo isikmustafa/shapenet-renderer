@@ -3,6 +3,7 @@
 #include "device_array.h"
 #include "triangle.h"
 #include "bvh.h"
+#include "material.h"
 
 #include <string>
 
@@ -138,10 +139,13 @@ public:
 
 		return false;
 	}
+
+	__device__ const util::DeviceArray<Material>& getMaterials() const { return m_materials; }
 #endif
 
 private:
 	util::DeviceArray<Triangle> m_triangles;
 	util::DeviceArray<BVHNode> m_nodes;
+	util::DeviceArray<Material> m_materials;
 	Bbox m_bbox;
 };

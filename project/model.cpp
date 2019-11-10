@@ -29,9 +29,24 @@ Model::Model(const std::string& path)
 	}
 
 	//Create materials
+	std::vector<Material> model_materials;
 	for (const auto& mat : materials)
 	{
+		glm::vec3 ambient(mat.ambient[0], mat.ambient[1], mat.ambient[2]);
+		glm::vec3 diffuse(mat.diffuse[0], mat.diffuse[1], mat.diffuse[2]);
 
+		std::string ambient_texture_filename = mat.ambient_texname;
+		std::string diffuse_texture_filename = mat.diffuse_texname;
+		if (!ambient_texture_filename.empty())
+		{
+			ambient_texture_filename = path + "/" + ambient_texture_filename;
+		}
+		if (!diffuse_texture_filename.empty())
+		{
+			diffuse_texture_filename = path + "/" + diffuse_texture_filename;
+		}
+
+		model_materials.emplace_back(ambient, diffuse, ambient_texture_filename, diffuse_texture_filename);
 	}
 
 	//Loop over shapes.
@@ -85,4 +100,5 @@ Model::Model(const std::string& path)
 
 	m_triangles = util::DeviceArray<Triangle>(triangles);
 	m_nodes = util::DeviceArray<BVHNode>(bvh_nodes);
+	m_materials = util::DeviceArray<Material>(model_materials);
 }
