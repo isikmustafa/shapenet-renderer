@@ -76,7 +76,7 @@ Model::Model(const std::string& path)
 			m_bbox.extend(positions[2]);
 
 			triangles.push_back(Triangle(positions[0], positions[1] - positions[0], positions[2] - positions[0],
-				normals[0], normals[1], normals[2], tex_coords[0], tex_coords[1], tex_coords[2], material_id));
+				glm::normalize(normals[0]), glm::normalize(normals[1]), glm::normalize(normals[2]), tex_coords[0], tex_coords[1], tex_coords[2], material_id));
 		}
 	}
 

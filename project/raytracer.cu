@@ -23,7 +23,7 @@ __global__ void raytracerKernel(Model* model, cudaSurfaceObject_t output, int wi
 
 	if (model->intersect(ray, intersection, FLT_MAX))
 	{
-		color = intersection.normal * 255.0f;
+		color = glm::abs(intersection.normal) * 255.0f;
 	}
 
 	surf2Dwrite(util::rgbToUint({ color.x, color.y, color.z }), output, index.x * 4, index.y);
