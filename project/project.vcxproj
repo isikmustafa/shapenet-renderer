@@ -82,18 +82,25 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bbox.cpp" />
+    <ClCompile Include="bvh.cpp" />
     <ClCompile Include="triangle.cpp" />
-    <CudaCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="output.cpp" />
     <ClCompile Include="texture.cpp" />
+    <CudaCompile Include="raytracer.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bbox.h" />
+    <ClInclude Include="bvh.h" />
+    <ClInclude Include="device_array.h" />
     <ClInclude Include="device_util.h" />
     <ClInclude Include="intersection.h" />
     <ClInclude Include="output.h" />
     <ClInclude Include="ray.h" />
+    <ClInclude Include="raytracer.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="material.h" />

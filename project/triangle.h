@@ -2,6 +2,7 @@
 
 #include "ray.h"
 #include "intersection.h"
+#include "bbox.h"
 
 #include <glm/glm.hpp>
 #include <cuda_runtime.h>
@@ -13,6 +14,8 @@ public:
 		const glm::vec3& n0, const glm::vec3& n1, const glm::vec3& n2,
 		const glm::vec2& t0, const glm::vec2& t1, const glm::vec2& t2,
 		int material_id);
+
+	Bbox getBbox() const;
 
 #ifdef __NVCC__
 	__device__ bool intersect(const Ray& ray, Intersection& intersection) const
@@ -45,6 +48,31 @@ public:
 		intersection.material_id = m_material_id;
 
 		return true;
+	}
+
+	__device__ float intersectShadowRay(const Ray& ray) const
+	{
+		//Möller-Trumbore algorithm
+		auto pvec = glm::cross(ray.getDirection(), m_edge2);
+		auto inv_det = 1.0f / glm::dot(m_edge1, pvec);
+
+		auto tvec = ray.getOrigin() - m_v0;
+		auto w1 = glm::dot(tvec, pvec) * inv_det;
+
+		if (w1 < 0.0f || w1 > 1.0f)
+		{
+			return -1.0f;
+		}
+
+		auto qvec = glm::cross(tvec, m_edge1);
+		auto w2 = glm::dot(ray.getDirection(), qvec) * inv_det;
+
+		if (w2 < 0.0f || (w1 + w2) > 1.0f)
+		{
+			return -1.0f;
+		}
+
+		return glm::dot(m_edge2, qvec) * inv_det;
 	}
 #endif
 

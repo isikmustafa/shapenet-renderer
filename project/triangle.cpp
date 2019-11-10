@@ -15,3 +15,11 @@ Triangle::Triangle(const glm::vec3& v0, const glm::vec3& edge1, const glm::vec3&
 	, m_t2(t2)
 	, m_material_id(material_id)
 {}
+
+Bbox Triangle::getBbox() const
+{
+	auto v1 = m_edge1 + m_v0;
+	auto v2 = m_edge2 + m_v0;
+
+	return Bbox(glm::min(glm::min(v1, v2), m_v0), glm::max(glm::max(v1, v2), m_v0));
+}
