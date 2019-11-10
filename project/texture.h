@@ -17,6 +17,11 @@ public:
 #ifdef __NVCC__
 	__device__ glm::vec3 fetch(const glm::vec2& tex_coord) const
 	{
+		if (!m_cuda_array)
+		{
+			return glm::vec3(1.0f);
+		}
+
 		float4 color = tex2D<float4>(m_texture, tex_coord.x, tex_coord.y);
 		return glm::vec3(color.z, color.y, color.x); //BGR TO RGB
 	}
