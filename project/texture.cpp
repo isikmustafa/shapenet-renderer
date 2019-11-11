@@ -16,9 +16,7 @@ Texture::Texture(const std::string& filename)
 	int height;
 	auto data = stbi_load(filename.c_str(), &width, &height, &channel, STBI_rgb_alpha);
 
-	std::cout << channel << std::endl;
-	std::cout << width << std::endl;
-	std::cout << height << std::endl;
+	std::cout << filename << std::endl;
 
 	if (!data)
 	{
@@ -50,15 +48,19 @@ Texture::Texture(const std::string& filename)
 }
 
 Texture::Texture(Texture&& rhs)
+	: m_cuda_array(rhs.m_cuda_array)
+	, m_texture(rhs.m_texture)
 {
-	std::swap(m_cuda_array, rhs.m_cuda_array);
-	std::swap(m_texture, rhs.m_texture);
+	rhs.m_cuda_array = nullptr;
+	rhs.m_texture = 0;
 }
 
 Texture& Texture::operator=(Texture&& rhs)
 {
-	std::swap(m_cuda_array, rhs.m_cuda_array);
-	std::swap(m_texture, rhs.m_texture);
+	m_cuda_array = rhs.m_cuda_array;
+	m_texture = rhs.m_texture;
+	rhs.m_cuda_array = nullptr;
+	rhs.m_texture = 0;
 
 	return *this;
 }

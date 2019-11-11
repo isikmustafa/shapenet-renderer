@@ -20,19 +20,27 @@ Output::Output(int width, int height)
 }
 
 Output::Output(Output&& rhs)
+	: m_width(rhs.m_width)
+	, m_height(rhs.m_height)
+	, m_content_array(rhs.m_content_array)
+	, m_content(rhs.m_content)
 {
-	std::swap(m_width, rhs.m_width);
-	std::swap(m_height, rhs.m_height);
-	std::swap(m_content_array, rhs.m_content_array);
-	std::swap(m_content, rhs.m_content);
+	rhs.m_width = 0;
+	rhs.m_height = 0;
+	rhs.m_content_array = nullptr;
+	rhs.m_content = 0;
 }
 
 Output& Output::operator=(Output&& rhs)
 {
-	std::swap(m_width, rhs.m_width);
-	std::swap(m_height, rhs.m_height);
-	std::swap(m_content_array, rhs.m_content_array);
-	std::swap(m_content, rhs.m_content);
+	m_width = rhs.m_width;
+	m_height = rhs.m_height;
+	m_content_array = rhs.m_content_array;
+	m_content = rhs.m_content;
+	rhs.m_width = 0;
+	rhs.m_height = 0;
+	rhs.m_content_array = nullptr;
+	rhs.m_content = 0;
 
 	return *this;
 }
