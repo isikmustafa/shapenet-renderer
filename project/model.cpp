@@ -11,7 +11,7 @@ Model::Model(const std::string& path)
 	std::string err;
 	std::string warn;
 
-	auto ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, (path + "model_normalized.obj").c_str(), path.c_str(), true, true);
+	auto ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, (path + "model_normalized.obj").c_str(), path.c_str());
 
 	if (!warn.empty())
 	{

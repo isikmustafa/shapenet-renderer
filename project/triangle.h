@@ -50,7 +50,7 @@ public:
 		return true;
 	}
 
-	__device__ float intersectShadowRay(const Ray& ray) const
+	__device__ float intersectShadowRay(const Ray& ray, glm::vec3& surface_normal) const
 	{
 		//Möller-Trumbore algorithm
 		auto pvec = glm::cross(ray.getDirection(), m_edge2);
@@ -71,6 +71,9 @@ public:
 		{
 			return -1.0f;
 		}
+
+		auto w0 = (1.0f - w1 - w2);
+		surface_normal = glm::normalize(w0 * m_n0 + w1 * m_n1 + w2 * m_n2);
 
 		return glm::dot(m_edge2, qvec) * inv_det;
 	}
