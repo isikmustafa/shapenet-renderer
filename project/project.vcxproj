@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="bbox.cpp" />
     <ClCompile Include="bvh.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material.cpp" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="bbox.h" />
     <ClInclude Include="bvh.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="device_array.h" />
     <ClInclude Include="device_util.h" />
     <ClInclude Include="intersection.h" />
