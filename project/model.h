@@ -31,7 +31,8 @@ public:
 		int triangle_index = -1;
 		BVHNode* traversal_stack[32];
 		int traversal_stack_top = -1;
-		BVHNode* intersected_ptr = nullptr;
+		BVHNode* intersection_stack[16];
+		int intersection_stack_top = -1;
 
 		//inner node
 		if (nodes[0].left_node)
@@ -41,7 +42,7 @@ public:
 		//leaf node
 		else
 		{
-			intersected_ptr = &nodes[0];
+			intersection_stack[++intersection_stack_top] = &nodes[0];
 		}
 
 		while (traversal_stack_top >= 0)
@@ -63,25 +64,14 @@ public:
 					//leaf node
 					else
 					{
-						if (intersected_ptr)
-						{
-							for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
-							{
-								auto result = triangles[i].intersectShadowRay(ray);
-								if (result > 0.0f && result < min_distance)
-								{
-									min_distance = result;
-									triangle_index = i;
-								}
-							}
-						}
-						intersected_ptr = &nodes[child_node];
+						intersection_stack[++intersection_stack_top] = &nodes[child_node];
 					}
 				}
 			}
 
-			if (__all(intersected_ptr != nullptr))
+			while (__all_sync(0xFFFFFFFF, intersection_stack_top >= 0))
 			{
+				auto intersected_ptr = intersection_stack[intersection_stack_top--];
 				for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 				{
 					auto result = triangles[i].intersectShadowRay(ray);
@@ -91,13 +81,26 @@ public:
 						triangle_index = i;
 					}
 				}
+			}
 
-				intersected_ptr = nullptr;
+			if (intersection_stack_top >= 14)
+			{
+				auto intersected_ptr = intersection_stack[intersection_stack_top--];
+				for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
+				{
+					auto result = triangles[i].intersectShadowRay(ray);
+					if (result > 0.0f && result < min_distance)
+					{
+						min_distance = result;
+						triangle_index = i;
+					}
+				}
 			}
 		}
 
-		if (intersected_ptr)
+		while (intersection_stack_top >= 0)
 		{
+			auto intersected_ptr = intersection_stack[intersection_stack_top--];
 			for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 			{
 				auto result = triangles[i].intersectShadowRay(ray);
