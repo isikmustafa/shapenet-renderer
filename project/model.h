@@ -63,9 +63,8 @@ public:
 					{
 						for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 						{
-							glm::vec3 surface_normal;
-							auto result = triangles[i].intersectShadowRay(ray, surface_normal);
-							if (result > 0.0f && result < min_distance && glm::dot(surface_normal, ray.getDirection()) < 0)
+							auto result = triangles[i].intersectShadowRay(ray);
+							if (result > 0.0f && result < min_distance)
 							{
 								min_distance = result;
 								triangle_index = i;
@@ -90,9 +89,8 @@ public:
 					{
 						for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 						{
-							glm::vec3 surface_normal;
-							auto result = triangles[i].intersectShadowRay(ray, surface_normal);
-							if (result > 0.0f && result < min_distance && glm::dot(surface_normal, ray.getDirection()) < 0)
+							auto result = triangles[i].intersectShadowRay(ray);
+							if (result > 0.0f && result < min_distance)
 							{
 								min_distance = result;
 								triangle_index = i;
@@ -107,9 +105,8 @@ public:
 			{
 				for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 				{
-					glm::vec3 surface_normal;
-					auto result = triangles[i].intersectShadowRay(ray, surface_normal);
-					if (result > 0.0f && result < min_distance && glm::dot(surface_normal, ray.getDirection()) < 0)
+					auto result = triangles[i].intersectShadowRay(ray);
+					if (result > 0.0f && result < min_distance)
 					{
 						min_distance = result;
 						triangle_index = i;
@@ -124,9 +121,8 @@ public:
 		{
 			for (int i = intersected_ptr->start_index; i <= intersected_ptr->end_index; ++i)
 			{
-				glm::vec3 surface_normal;
-				auto result = triangles[i].intersectShadowRay(ray, surface_normal);
-				if (result > 0.0f && result < min_distance && glm::dot(surface_normal, ray.getDirection()) < 0)
+				auto result = triangles[i].intersectShadowRay(ray);
+				if (result > 0.0f && result < min_distance)
 				{
 					min_distance = result;
 					triangle_index = i;

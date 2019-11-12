@@ -43,6 +43,12 @@ public:
 		//Fill the intersection record.
 		auto w0 = (1.0f - w1 - w2);
 		intersection.normal = glm::normalize(w0 * m_n0 + w1 * m_n1 + w2 * m_n2);
+
+		if (glm::dot(intersection.normal, ray.getDirection()) >= 0.0f)
+		{
+			return false;
+		}
+
 		intersection.tex_coord = w0 * m_t0 + w1 * m_t1 + w2 * m_t2;
 		intersection.distance = glm::dot(m_edge2, qvec) * inv_det;
 		intersection.material_id = m_material_id;
@@ -50,7 +56,7 @@ public:
 		return true;
 	}
 
-	__device__ float intersectShadowRay(const Ray& ray, glm::vec3& surface_normal) const
+	__device__ float intersectShadowRay(const Ray& ray) const
 	{
 		//Möller-Trumbore algorithm
 		auto pvec = glm::cross(ray.getDirection(), m_edge2);
@@ -73,9 +79,11 @@ public:
 		}
 
 		auto w0 = (1.0f - w1 - w2);
-		surface_normal = glm::normalize(w0 * m_n0 + w1 * m_n1 + w2 * m_n2);
+		auto surface_normal = glm::normalize(w0 * m_n0 + w1 * m_n1 + w2 * m_n2);
+		auto distance = glm::dot(m_edge2, qvec) * inv_det;
 
-		return glm::dot(m_edge2, qvec) * inv_det;
+		//Is it back-facing?
+		return glm::dot(surface_normal, ray.getDirection()) < 0.0f ? distance : -1.0f;
 	}
 #endif
 

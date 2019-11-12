@@ -16,8 +16,6 @@ Texture::Texture(const std::string& filename)
 	int height;
 	auto data = stbi_load(filename.c_str(), &width, &height, &channel, STBI_rgb_alpha);
 
-	std::cout << filename << std::endl;
-
 	if (!data)
 	{
 		throw std::runtime_error("Error: Image cannot be loaded");
