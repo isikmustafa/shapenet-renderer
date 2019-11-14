@@ -18,9 +18,10 @@ int main()
 	
 	util::DeviceArray<Model> model_gpu(model);
 
-	constexpr int number_of_poses = 1;
-	constexpr int number_of_lights = 100;
+	constexpr int number_of_poses = 3;
+	constexpr int number_of_lights = 40;
 	constexpr float position_radius = 1.3f;
+	glm::mat3 intrinsics(glm::vec3(525.0f, 0.0f, 0.0f), glm::vec3(0.0f, 525.0f, 0.0f), glm::vec3(256.0f, 256.0f, 1.0f));
 
 	std::mt19937 generator((std::random_device())());
 	std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
@@ -28,7 +29,7 @@ int main()
 	for (int i = 0; i < number_of_poses; ++i)
 	{
 		auto camera_position = util::sampleSphereUniform(distribution(generator), distribution(generator), position_radius);
-		Camera camera(glm::vec3(0.0f), camera_position);
+		Camera camera(glm::vec3(0.0f), camera_position, intrinsics);
 		for (int j = 0; j < number_of_lights; ++j)
 		{
 			auto disc_pos = util::sampleDiscUniform(distribution(generator), distribution(generator), 1.0f);
@@ -40,7 +41,8 @@ int main()
 			auto sample_no_str = std::to_string(sample_no++);
 			auto output_name = std::string(6 - sample_no_str.size(), '0').append(sample_no_str);
 			output.save("C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/rgb/" + output_name + ".png");
-			camera.dumpToFile("C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/pose/" + output_name + ".txt");
+			camera.dumpPoseToFile("C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/pose/" + output_name + ".txt");
+			camera.dumpIntrinsicsToFile("C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/intrinsics/" + output_name + ".txt");
 		}
 	}
 

@@ -6,7 +6,7 @@
 
 struct Camera
 {
-	Camera(const glm::vec3& p_look_at, const glm::vec3& p_position);
+	Camera(const glm::vec3& p_look_at, const glm::vec3& p_position, const glm::mat3& p_intrinsics);
 
 #ifdef __NVCC__
 	__device__ glm::vec3 pointEyeToWorld(const glm::vec3& point) const
@@ -20,9 +20,11 @@ struct Camera
 	}
 #endif
 
-	//TODO: Implement
-	void dumpToFile(const std::string& filename) const;
+	void dumpPoseToFile(const std::string& filename) const;
+	void dumpIntrinsicsToFile(const std::string& filename) const;
 
 	glm::vec3 position;
 	glm::mat3 rotation;
+	glm::mat3 intrinsics;
+	glm::mat3 inverse_intrinsics;
 };

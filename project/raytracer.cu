@@ -11,10 +11,9 @@ __global__ void raytracerKernel(Model* model, Camera camera, glm::vec3 light_dir
 		return;
 	}
 
-	glm::mat3 intrinsics(glm::vec3(525.0f, 0.0f, 0.0f), glm::vec3(0.0f, 525.0f, 0.0f), glm::vec3(256.0f, 256.0f, 1.0f));
 	glm::vec3 uv(index.x + 0.5f, index.y + 0.5f, 1.0f);
 
-	auto eye_coord = glm::inverse(intrinsics) * uv;
+	auto eye_coord = camera.inverse_intrinsics * uv;
 	auto world_coord = camera.pointEyeToWorld(eye_coord);
 
 	Ray ray(camera.position, glm::normalize(glm::vec3(world_coord) - camera.position));
