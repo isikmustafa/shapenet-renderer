@@ -33,7 +33,7 @@ __global__ void raytracerKernel(Model* model, Camera camera, cudaSurfaceObject_t
 	}
 
 	//BGR is intentionally given.
-	surf2Dwrite(util::rgbToUint({ color.b, color.g, color.r }), output, index.x * 4, index.y);
+	surf2Dwrite(util::rgbToUint({ color.r, color.g, color.b }), output, index.x * 4, index.y);
 }
 
 void raytracer(Model* model, const Camera& camera, cudaSurfaceObject_t output, int width, int height)

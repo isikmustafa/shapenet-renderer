@@ -25,9 +25,9 @@ namespace util
 	__device__ inline unsigned int rgbToUint(const float3& rgb)
 	{
 		unsigned int pixel = (255) << 8;
-		pixel = (pixel | static_cast<unsigned char>(rgb.x)) << 8;
+		pixel = (pixel | static_cast<unsigned char>(rgb.z)) << 8;
 		pixel = (pixel | static_cast<unsigned char>(rgb.y)) << 8;
-		pixel = (pixel | static_cast<unsigned char>(rgb.z));
+		pixel = (pixel | static_cast<unsigned char>(rgb.x));
 
 		return pixel;
 	}
