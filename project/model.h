@@ -12,6 +12,8 @@ class Model
 public:
 	Model(const std::string& path);
 
+	const Bbox& getBbox() const { return m_bbox; }
+
 #ifdef __NVCC__
 	__device__ bool intersect(const Ray& ray, Intersection& intersection, float max_distance)
 	{

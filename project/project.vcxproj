@@ -44,7 +44,7 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\3rd\stb;..\3rd\glm;..\3rd\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>..\3rd\json\single_include;..\3rd\stb;..\3rd\glm;..\3rd\tinyobjloader;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
