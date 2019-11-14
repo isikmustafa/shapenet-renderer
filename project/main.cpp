@@ -45,7 +45,7 @@ int main()
 	const int number_of_lights = model_json["numberOfLights"];
 	const float position_radius = model_json["cameraPositionRadius"];
 
-	auto fxfy = model_json["imageSideLength"] / 512.0f;
+	auto fxfy = static_cast<float>(model_json["imageSideLength"]) / 512.0f;
 	glm::mat3 intrinsics(glm::vec3(525.0f * fxfy, 0.0f, 0.0f),
 		glm::vec3(0.0f, 525.0f * fxfy, 0.0f),
 		glm::vec3(256.0f * fxfy, 256.0f * fxfy, 1.0f));
