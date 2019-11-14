@@ -21,7 +21,7 @@ struct Camera
 #endif
 
 	//TODO: Implement
-	void dumpToFile(const std::string& filename) const {};
+	void dumpToFile(const std::string& filename) const;
 
 	glm::vec3 position;
 	glm::mat3 rotation;
