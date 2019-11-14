@@ -12,6 +12,7 @@ public:
 	void extend(const glm::vec3& point);
 	void extend(const Bbox& bbox);
 	float getSurfaceArea() const;
+	glm::vec3 getCenter() const;
 
 	const glm::vec3& getMin() const { return m_min; }
 	const glm::vec3& getMax() const { return m_max; }

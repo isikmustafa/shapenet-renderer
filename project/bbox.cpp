@@ -29,3 +29,8 @@ float Bbox::getSurfaceArea() const
 	auto edges = m_max - m_min;
 	return 2 * (edges.x * edges.y + edges.x * edges.z + edges.y * edges.z);
 }
+
+glm::vec3 Bbox::getCenter() const
+{
+	return (m_min + m_max) * 0.5f;
+}

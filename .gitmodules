@@ -7,3 +7,6 @@
 [submodule "3rd/stb"]
 	path = 3rd/stb
 	url = https://github.com/nothings/stb.git
+[submodule "3rd/json"]
+	path = 3rd/json
+	url = https://github.com/nlohmann/json.git
