@@ -41,6 +41,14 @@ namespace util
 		return elapsed_time;
 	}
 
+	inline glm::vec2 sampleDiscUniform(float u1, float u2, float radius)
+	{
+		radius = glm::sqrt(radius * u1);
+		auto theta = glm::two_pi<float>() * u2;
+
+		return glm::vec2(glm::cos(theta), glm::sin(theta)) * radius;
+	}
+
 	inline glm::vec3 sampleHemisphereUniform(float u1, float u2, float radius)
 	{
 		auto theta = glm::acos(u1);
