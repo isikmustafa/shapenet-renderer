@@ -32,6 +32,10 @@ int main()
 	{
 		std::filesystem::create_directories(std::string(model_json["intrinsicsDirectoryPath"]));
 	}
+	if (!std::filesystem::exists(std::string(model_json["lightDirectoryPath"])))
+	{
+		std::filesystem::create_directories(std::string(model_json["lightDirectoryPath"]));
+	}
 
 	const int screen_width = model_json["imageSideLength"];
 	const int screen_height = model_json["imageSideLength"];
@@ -50,18 +54,19 @@ int main()
 		glm::vec3(0.0f, 525.0f * fxfy, 0.0f),
 		glm::vec3(256.0f * fxfy, 256.0f * fxfy, 1.0f));
 
+	constexpr glm::vec3 scene_center(0.0f, 0.0f, 0.0f);
 	std::mt19937 generator((std::random_device())());
 	std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
 	int sample_no = 0;
 	for (int i = 0; i < number_of_poses; ++i)
 	{
 		auto camera_position = util::sampleSphereUniform(distribution(generator), distribution(generator), position_radius);
-		Camera camera(glm::vec3(0.0f), camera_position, intrinsics);
+		Camera camera(scene_center, camera_position, intrinsics);
 		for (int j = 0; j < number_of_lights; ++j)
 		{
 			auto disc_pos = util::sampleDiscUniform(distribution(generator), distribution(generator), 1.0f);
 			glm::vec3 light_position(disc_pos.x, 1.5f, disc_pos.y); //y=1.5 plane
-			auto light_direction = -light_position;
+			auto light_direction = glm::normalize(scene_center - light_position);
 
 			raytracer(model_gpu.getPtr(), camera, light_direction, output.getContent(), screen_width, screen_height);
 
@@ -70,6 +75,10 @@ int main()
 			output.save(std::string(model_json["rgbDirectoryPath"]) + output_name + ".png");
 			camera.dumpPoseToFile(std::string(model_json["poseDirectoryPath"]) + output_name + ".txt");
 			camera.dumpIntrinsicsToFile(std::string(model_json["intrinsicsDirectoryPath"]) + output_name + ".txt");
+
+			std::ofstream light_file(std::string(model_json["lightDirectoryPath"]) + output_name + ".txt");
+			light_file << light_direction.x << " " << light_direction.y << " " << light_direction.z << std::endl;
+			light_file.close();
 		}
 	}
 
