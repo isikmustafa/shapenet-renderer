@@ -23,7 +23,7 @@ public:
 		}
 
 		float4 color = tex2D<float4>(m_texture, tex_coord.x, tex_coord.y);
-		return glm::vec3(color.z, color.y, color.x); //BGR TO RGB
+		return glm::vec3(color.x, color.y, color.z); //BGR TO RGB
 	}
 #endif
 

@@ -79,8 +79,12 @@ Model::Model(const std::string& path)
 				normals[v].x = attrib.normals[3 * idx.normal_index + 0];
 				normals[v].y = attrib.normals[3 * idx.normal_index + 1];
 				normals[v].z = attrib.normals[3 * idx.normal_index + 2];
-				tex_coords[v].x = attrib.texcoords[2 * idx.texcoord_index + 0];
-				tex_coords[v].y = attrib.texcoords[2 * idx.texcoord_index + 1];
+
+				if (idx.texcoord_index != -1)
+				{
+					tex_coords[v].x = attrib.texcoords[2 * idx.texcoord_index + 0];
+					tex_coords[v].y = attrib.texcoords[2 * idx.texcoord_index + 1];
+				}
 			}
 			index_offset += 3;
 
