@@ -1,10 +1,9 @@
 {
-"singleModelPath": "C:/Users/Mustafa/Downloads/ShapeNetCore.v2/02958343/1a0bc9ab92c915167ae33d942430658c/models/",
-"rgbDirectoryPath": "C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/rgb/",
-"poseDirectoryPath": "C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/pose/",
-"intrinsicsDirectoryPath": "C:/Users/Mustafa/Desktop/custon_train/1a0bc9ab92c915167ae33d942430658c/intrinsics/",
-"imageSideLength": 512,
-"numberOfPoses": 250,
-"numberOfLights": 40,
-"cameraPositionRadius": 1.3
+  "modelPath": "C:/Users/Mustafa/Downloads/ShapeNetCore.v2/02958343/",
+  "carIds": [ "1a0bc9ab92c915167ae33d942430658c", "1a56d596c77ad5936fa87a658faf1d26", "1ae530f49a914595b491214a0cc2380", "1aef0af3cdafb118c6a40bdf315062da", "1ba30d64da90ea05283ffcfc40c29975" ],
+  "outputDirectory": "C:/Users/Mustafa/Desktop/dataset-hemisphere-test/closeups_moving_light/",
+  "imageSideLength": 512,
+  "numberOfPoses": 50,
+  "numberOfLights": 8,
+  "cameraPositionRadius": 1.3
 }
